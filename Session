@@ -1,0 +1,246 @@
+Console.WriteLine("Ведіть індекс");
+            int index = Convert.ToInt32(Console.ReadLine());
+            adres[index].Select();
+            Console.ReadLine();
+        }
+    }
+    class Address
+    {
+        public string street;
+        public string town;
+        public int dom;
+        public Address()
+        {
+
+        }
+        public Address(string town, string street, int index)
+        {
+            this.street = street;
+            this.town = town;
+            this.dom = index;
+        }
+        public void Updade()
+        {
+            Console.WriteLine("Ведіть своє місто");
+            town = Console.ReadLine();
+            Console.WriteLine("Ведіть свою вулицю");
+            street = Console.ReadLine();
+            Console.WriteLine("Номер будинку");
+            dom = Convert.ToInt32(Console.ReadLine());
+        }
+        public void Select()
+        {
+            Console.WriteLine(town);
+            Console.WriteLine(street);
+            Console.WriteLine(dom);using System;
+
+namespace Console_Application
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int x = int.Parse(Console.ReadLine());
+            int y = int.Parse(Console.ReadLine());
+            Rectangle rect = new Rectangle(x, y);
+            Console.WriteLine(rect.Area());
+        }
+        class Rectangle
+        {
+            private int a, b;
+            public Rectangle(int a, int b)
+            {
+                this.a = a;
+                this.b = b;
+            }
+            public void WriteAB()
+            {
+                Console.WriteLine("Длина a={0}", a);
+                Console.WriteLine("Длина b={0}", b);
+            }
+            public int Perimeter()
+            {
+                return 2 * a + 2 * b;
+            }
+            public int Area()
+            {
+                return a * b;
+            }
+            public int A
+            {
+                get { return a; }
+                set { a = value; }
+            }
+            public int B
+            {
+                get { return b; }
+                set { b = value; }
+            }
+            public bool IsSquare
+            {
+                get { return a == b; }
+            }
+            public int this[int index]
+            {
+                get
+                {
+                    if (index == 0)
+                        return a;
+                    if (index == 1)
+                        return b;
+
+Console.WriteLine("Нtg {0}", index);
+                    return -1;
+                }
+                set
+                {
+                    if (index == 0)
+                        a = value;
+                    if (index == 1)
+                        b = value;
+                    if (index != 0 && index != 1)
+                        Console.WriteLine("Неверный индекс {0}", index);
+                }
+            }
+            public static Rectangle operator ++(Rectangle r)
+            {
+                r.A++;
+                r.B++;
+                return r;
+            }
+            public static Rectangle operator --(Rectangle r)
+            {
+                r.A--;
+                r.B--;
+                return r;
+            }
+            public static bool operator false(Rectangle r)
+            {
+                if (!r.IsSquare)
+                    return false;
+                return true;
+            }
+            public static bool operator true(Rectangle r)
+            {
+                if (r.IsSquare)
+                    return true;
+                return false;
+            }
+            public static Rectangle operator *(Rectangle r, int v)
+            {
+                r.A *= v;
+                r.B *= v;
+                return r;
+            }
+            public static Rectangle operator *(int v, Rectangle r)
+            {
+                r.A *= v;
+                r.B *= v;
+                return r;
+            }
+            public static implicit operator string(Rectangle r)
+            {   
+                return r.A.ToString() + " " + r.B.ToString();
+            }
+            public static implicit operator Rectangle(string s)
+            {
+                string[] w = s.Split(' ');
+                return new Rectangle(Convert.ToInt32(w[0]), Convert.ToInt32(w[1]));
+            }
+        }
+    }
+}using System;
+
+namespace Console_Application_1
+{
+    class Program
+    {
+        class Point
+        {
+            string name;
+            int x, y;
+            public int X
+            {
+                get
+                {
+                    return x;
+                }
+            }
+            public int Y
+            {
+                get
+                {
+                    return y;
+                }
+            }
+            public string Name
+            {
+                get
+                {
+                    return name;
+                }
+            }
+            public Point()
+                : this("", 0, 0) { }
+            public Point(string name, int x, int y)
+            {
+                Console.WriteLine("Enter a letter of Point:");
+                this.name = Console.ReadLine();
+                Console.WriteLine("Enter X:");
+                this.x = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Y:");
+                this.y = int.Parse(Console.ReadLine());
+            }
+        }
+        class Figure
+        {
+            int number;
+            Point[] points;
+            string name;
+            public string Name
+            {
+                get
+                {
+                    return name;
+                }
+                set
+                {
+                    name = value;
+                }
+            }
+            public void InitializeFigure()
+            {
+                Console.WriteLine("enter number of verticles of your figure");
+                number = int.Parse(Console.ReadLine());
+                for (int i = 0; i < number; i++)
+                {
+                    points[i] = new Point();
+                }
+}
+            public double LengthSide(Point a, Point b)
+            {
+                return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            }
+            public double CalculatePerimeter(params Point[] points)
+            {
+                double perimeter = 0;
+                for (int i = 1; i < points.Length; i++)
+                {
+                    perimeter += this.LengthSide(points[i - 1], points[i]);
+                }
+                perimeter += this.LengthSide(points[0], points[points.Length]);
+                return perimeter;
+            }
+            public Figure(string name)
+            {
+                InitializeFigure();
+            }
+        }
+        static void Main(string[] args)
+        {
+            Figure cube = new Figure("cube");
+            Console.WriteLine(cube.CalculatePerimeter());
+            Console.ReadKey();
+        }
+
+    }
